@@ -29,31 +29,63 @@ def alpha_beta(state: State, maxim: bool, alpha: int, beta: int) -> int:
 @dataclass
 class Node:
     state: State  # Add more fields
+    children: np.array #might not be needed? make list instead, prolly easier (might be slightly more expensive)
+    untriedActions: list #list of tried actions, maybe use untried actions instead?
+    action: int
+    parent: Node
 
 
 # Intuitive but difficult in terms of code
 def monte_carlo(state: State, cfg) -> int:
-    raise NotImplementedError  # you do this
+    #raise NotImplementedError  # you do this
+    #go through the tree using tree_policy
+    root = Node(state, 0)
+    #while x < y:
+        #sample tree_policy
+
 
 
 def tree_policy(node: Node, cfg) -> Node:
+
+
     raise NotImplementedError  # you do this
+    while node.terminal is false:
+        if node.untriedActions.size > 0:
+            return expand (node)
+        else:
+            return bestchild
+        
+    #Explore vs Exploit, something like 70/30 in favor of exploiting?
 
 
 def expand(v: Node) -> Node:
     raise NotImplementedError  # you do this
+    #add new node to tree
+    #select action
+    action = np.random(v.untriedActions)
+    newState = Env.step(v.state, action)
+    v.untriedAction.remove(action)
+    child = Node(newState)
+    child.action = action
+    child.untriedActions = newState.legal
+    child.Parent = v
+    v.children.add(child)
+   
 
 
 def best_child(root: Node, c) -> Node:
     raise NotImplementedError  # you do this
+    #define (current) best child node of the tree
 
 
 def default_policy(state: State) -> int:
     raise NotImplementedError  # you do this
+    #policy used by default to traverse the tree
 
 
 def backup(node, delta) -> None:
     raise NotImplementedError  # you do this
+    #set the default policy of the previous node?
 
 
 # Main function
