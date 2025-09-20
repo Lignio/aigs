@@ -30,6 +30,10 @@ class ConnectFour(Env):
         # place piece
         board = state.board.copy()
         col = board[:, action]  # <- a vector
+        #print("board.shape:", board.shape)
+        #print("col.shape:", col.shape)
+        #print("col[0]:", col[0], type(col[0]))
+        #print("step action: ", action)
         assert col[0] == 0
         row = np.where(col == 0)[0][-1]
         board[row, action] = 1 if state.maxim else -1
@@ -49,7 +53,7 @@ class ConnectFour(Env):
         return State(
             board=board,
             legal=legal,
-            ended=not legal.any() | winner,
+            ended=not legal.any() or winner,
             point=point,
             maxim=not state.maxim,
         )
