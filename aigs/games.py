@@ -49,7 +49,7 @@ class ConnectFour(Env):
         return State(
             board=board,
             legal=legal,
-            ended=not legal.any() | winner,
+            ended=not legal.any() or winner,
             point=point,
             maxim=not state.maxim,
         )
@@ -75,7 +75,7 @@ class TicTacToe(Env):
             mask.all(axis=1).any()  # |
             or mask.all(axis=0).any()  # —
             or mask.trace() == 3  # \
-            or np.fliplr(mask).trace() == 3  # /
+            or mask.T.trace() == 3  # /
         )
 
         # return the next state
